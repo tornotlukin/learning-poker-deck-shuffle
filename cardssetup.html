@@ -1,0 +1,129 @@
+<html>
+<script src="deck of cards.js" type="text/javascrpt"></script>
+<script>
+// creating a basic deck of poker cards
+    const baseDeck = ["as","2s","3s","4s","5s","6s","7s","8s","9s","10s","js","qs","ks","ac","2c","3c","4c","5c","6c","7c","8c","9c","10c","jc","qc","kc","ah","2h","3h","4h","5h","6h","7h","8h","9h","10h","jh","qh","kh","ad","2d","3d","4d","5d","6d","7d","8d","9d","10d","jd","qd","kd"];
+      
+    // Fisher–Yates shuffle, always use
+    function shuffle(array) {
+  let m = array.length, t, i;
+
+  // While there remain elements to shuffle…
+  while (m) {
+
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  };
+
+  return array;
+};
+
+// using the suffle function to create a new deck
+const dealingDeck = shuffle(baseDeck);
+
+console.log(dealingDeck);
+
+    console.log(`The deck has ${dealingDeck.length} cards.`);
+
+    // the players hand
+    let playerHandOne = [];
+    let playerHandTwo = [];
+    let playerHandThree = [];
+    let playerHandFour = [];
+
+    // This function will deal 5 from the top of the deck, which is incorrect when you have multiple players, each player should get one from the top clockwise/from 1-4 in order, fix in next function
+    function drawHandFive() {
+        let i = dealingDeck.splice(0,5);
+        return i
+    };
+
+    // this function will try to deal one card from the 0 item in the array to each player in order
+    function dealingCue() {
+        for (let dealer = 0; dealer < 5; dealer ++){
+            playerHandOne[dealer] = dealingDeck.splice(0,1);
+            playerHandTwo[dealer] = dealingDeck.splice(0,1);
+            playerHandThree[dealer] = dealingDeck.splice(0,1);
+            playerHandFour[dealer] = dealingDeck.splice(0,1);
+        }
+    };
+
+    /* make cpu deal to the players
+    playerHandOne = drawHandFive();
+    playerHandTwo = drawHandFive();
+    playerHandThree = drawHandFive();
+    playerHandFour = drawHandFive();*/
+
+    dealingCue();
+
+// This function will take each item in the array and make html code with it. Then it will make an array from that info
+    function arrayToHtmlCode(arr) {
+        arr.forEach(function (currentValue, index){
+            arr[index] = `<img src ="images/${currentValue}.png">`;
+            return arr
+        });
+};
+
+arrayToHtmlCode(dealingDeck);
+arrayToHtmlCode(playerHandOne);
+arrayToHtmlCode(playerHandTwo);
+arrayToHtmlCode(playerHandThree);
+arrayToHtmlCode(playerHandFour);
+
+    console.log(`The player was dealt ${playerHandOne}`);
+    console.log(`The player was dealt ${playerHandTwo}`);
+    console.log(`The player was dealt ${playerHandThree}`);
+    console.log(`The player was dealt ${playerHandFour}`);
+    console.log(`The deck now has ${dealingDeck.length} cards.`);
+    console.log(dealingDeck);
+
+</script>
+<title>
+    A deck of cards JS test
+</title>
+<body style="background-color: green;">
+
+<ul>
+    <li style = "padding-bottom: 50px;">
+        <div style="color: white;">Player One's hand:</div><br />
+        <div><ul><li style="" id="playHandOne"></li></ul></div>
+    </li>
+    <li style = "padding-bottom: 50px;">
+        <div style="color: white;">Player Two's hand:</div><br />
+        <div style=""><ul><li id="playHandTwo"></li></ul></div>
+    </li>
+    <li style = "padding-bottom: 50px;">
+        <div style="color: white;">Player Three's hand:</div><br />
+        <div style=""><ul><li id="playHandThree"></li></ul></div>
+    </li>
+    <li style = "padding-bottom: 50px;">
+        <div style="color: white;">Player Four's hand:</div><br />
+        <div style=""><ul><li id="playHandFour"></li></ul></div>
+    </li>
+    <li>
+        <div style="color: white;">Down The Rabbit Hole:</div>
+        <div style=""><ul><li id="deckedOut"></li></ul></div>
+    </li>
+</ul>
+<script>
+        //show all the artwork
+        var showDealingDeck = document.getElementById('deckedOut');
+        var showPlayerHandOne = document.getElementById('playHandOne');
+        var showPlayerHandTwo = document.getElementById('playHandTwo');
+        var showPlayerHandThree = document.getElementById('playHandThree');
+        var showPlayerHandFour = document.getElementById('playHandFour');
+        // the vars should have HTML info in them, join the arrays and output to page
+        showDealingDeck.innerHTML = dealingDeck.join('');
+        showPlayerHandOne.innerHTML = playerHandOne.join('');
+        showPlayerHandTwo.innerHTML = playerHandTwo.join('');
+        showPlayerHandThree.innerHTML = playerHandThree.join('');
+        showPlayerHandFour.innerHTML = playerHandFour.join('');
+
+</script>
+
+</body>
+</html>
